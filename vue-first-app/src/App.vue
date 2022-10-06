@@ -8,7 +8,8 @@
   <ul>
     <friend-contact v-for="friend in friends" :name="friend.name" :phone="friend.phone"
      :email="friend.email" :isFavorite="friend.isFavorite"
-     :key="friend.id" :id="friend.id" @toggle-favorite="toggleFavorite(friend.id)"></friend-contact>
+     :key="friend.id" :id="friend.id" @toggle-favorite="toggleFavorite(friend.id)"
+      @delete-contact="deleteContact(friend.id)"></friend-contact>
   </ul>
 </template>
 
@@ -43,6 +44,9 @@ export default {
     addContact(friend) {
       const maxId = Math.max(...this.friends.map((el) => el.id));
       this.friends = [...this.friends, { id: maxId + 1, ...friend }];
+    },
+    deleteContact(id) {
+      this.friends = this.friends.filter((el) => el.id !== id);
     },
   },
   components: { NewFriend },
