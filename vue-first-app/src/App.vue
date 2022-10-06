@@ -2,34 +2,50 @@
   <header>
     <h1>My friends</h1>
   </header>
+  <NewFriend @add-contact="addContact">
+    g
+  </NewFriend>
   <ul>
-    <!-- <li v-for="friend in friends" :key="friend.id">{{friend.name}}</li> -->
-    <friend-contact></friend-contact>
-    <friend-contact></friend-contact>
+    <friend-contact v-for="friend in friends" :name="friend.name" :phone="friend.phone"
+     :email="friend.email" :isFavorite="friend.isFavorite"
+     :key="friend.id" :id="friend.id" @toggle-favorite="toggleFavorite(friend.id)"></friend-contact>
   </ul>
 </template>
 
 <script>
+import NewFriend from './components/NewFriend.vue';
+
 export default {
   data() {
     return {
       friends: [
         {
-          id: 1,
+          id: 0,
           name: 'tornike',
           phone: '12345',
           email: '1@1.com',
+          isFavorite: true,
         },
         {
-          id: 2,
+          id: 1,
           name: 'guja',
           phone: '12344',
           email: '2@1.com',
+          isFavorite: false,
         },
       ],
     };
   },
-  methods: {},
+  methods: {
+    toggleFavorite(id) {
+      this.friends[id].isFavorite = !this.friends[id].isFavorite;
+    },
+    addContact(friend) {
+      const maxId = Math.max(...this.friends.map((el) => el.id));
+      this.friends = [...this.friends, { id: maxId + 1, ...friend }];
+    },
+  },
+  components: { NewFriend },
 };
 </script>
 
@@ -65,7 +81,7 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li, form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -97,5 +113,15 @@ header {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+#app label {
+  font-weight: bold;
+  margin-right: 1rem;
+  width: 7rem;
+  display: inline-block;
+}
+#app form div {
+  margin: 1rem 0;
 }
 </style>
