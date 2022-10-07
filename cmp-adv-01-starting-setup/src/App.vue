@@ -1,20 +1,25 @@
 <template>
   <div>
     <TheHeader/>
-    <badge-list></badge-list>
-    <UserInfo :full-name="activeUser.name"
-              :info-text="activeUser.description"
-              :role="activeUser.role"/>
-      
+    <button @click="setSelectedComponent('active-goals')">active goals</button>
+    <button @click="setSelectedComponent('manage-goals')">manage goals</button>
+    
+    <!-- <active-goals v-if="selectedComponent==='active-goals'"></active-goals>
+    <manage-goals v-if="selectedComponent==='manage-goals'"></manage-goals> -->
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import TheHeader from './components/TheHeader.vue';
-import UserInfo from './components/UserInfo.vue';
-import BadgeList from './components/BadgeList.vue';
+// import UserInfo from './components/UserInfo.vue';
+// import BadgeList from './components/BadgeList.vue';
+import ActiveGoals from './components/ActiveGoals.vue';
+import ManageGoals from './components/ManageGoals.vue';
 export default {
-  components:{TheHeader, UserInfo, BadgeList},
+  components:{TheHeader, ActiveGoals, ManageGoals},
   data() {
     return {
       activeUser: {
@@ -22,8 +27,14 @@ export default {
         description: 'Site owner and admin',
         role: 'admin',
       },
+      selectedComponent: 'active-goals',
     };
   },
+  methods:{
+    setSelectedComponent(componentName){
+      this.selectedComponent = componentName;
+    }
+  }
 };
 </script>
 
