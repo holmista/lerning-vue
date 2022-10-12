@@ -35,7 +35,7 @@ export default {
     }
 
     const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/coaches.json`
+      //endpoint here
     );
     const responseData = await response.json();
 

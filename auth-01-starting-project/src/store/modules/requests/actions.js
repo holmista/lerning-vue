@@ -4,7 +4,9 @@ export default {
       userEmail: payload.email,
       message: payload.message
     };
-    const response = await fetch(`https://vue-http-demo-85e9e.firebaseio.com/requests/${payload.coachId}.json`, {
+    const response = await fetch(
+      // endpoint here
+      , {
       method: 'POST',
       body: JSON.stringify(newRequest)
     });
