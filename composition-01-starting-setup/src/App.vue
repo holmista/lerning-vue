@@ -1,25 +1,39 @@
 <template>
   <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
+    <h2>{{ username }}</h2>
+    <!-- <h3>{{ lastName }}</h3> -->
     <button @click="incrementAge">increment age</button>
+    <div>
+      <input type="text" placeholder="first name" v-model="firstName">
+      <input type="text" placeholder="last name"  v-model="lastName">
+    </div>
   </section>
 </template>
 
 <script>
-import {ref} from 'vue'
+import {ref, computed, watch} from 'vue'
 export default {
   setup(){
-    const user = ref({
-      name: 'tornike',
-      age: 25
+    const firstName = ref('')
+    const lastName = ref('')
+    // const setFirstName = (e) => {
+    //   firstName.value = e.target.value
+    // }
+    // const setLastName = (e) => {
+    //   lastName.value = e.target.value
+    // }
+    watch([firstName, lastName], (newVal, oldVal) => {
+      console.log(newVal, oldVal)
     })
-    const incrementAge = () => {
-      user.value.age++
-    }
+    const username = computed(()=>{
+      return firstName.value + ' ' + lastName.value
+    })
     return {
-     user,
-     incrementAge
+      firstName,
+      lastName,
+      username,
+      // setFirstName,
+      // setLastName
     }
   }
 };
